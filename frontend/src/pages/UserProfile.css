@@ -1,0 +1,299 @@
+.profile-page {
+  min-height: calc(100vh - 70px);
+  padding: 60px 20px;
+  background: #f8fafc;
+}
+
+.profile-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Header */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.profile-header h1 {
+  margin-bottom: 8px;
+  font-size: 36px;
+}
+
+.profile-header p {
+  color: #6b7280;
+}
+
+.profile-logout-btn {
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #dc2626;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.profile-logout-btn:hover {
+  background: #b91c1c;
+}
+
+/* Main Cards */
+
+.profile-card {
+  margin-bottom: 25px;
+  padding: 28px;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.profile-card h2 {
+  margin-bottom: 20px;
+  font-size: 21px;
+}
+
+/* Profile Information */
+
+.profile-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.profile-info div,
+.password-row > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.profile-info span,
+.password-row span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.profile-info strong,
+.password-row strong {
+  color: #111827;
+  font-size: 15px;
+}
+
+/* Security */
+
+.password-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.change-password-btn {
+  display: inline-block;
+
+  padding: 10px 15px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  color: #111827;
+  background: #ffffff;
+
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.change-password-btn:hover {
+  background: #f9fafb;
+}
+
+/* Orders Header */
+
+.orders-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.orders-section-header h2 {
+  margin-bottom: 5px;
+}
+
+.orders-section-header p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.orders-section-header a {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.orders-section-header a:hover {
+  text-decoration: underline;
+}
+
+/* Orders */
+
+.profile-orders {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-order {
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  align-items: center;
+  gap: 20px;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.profile-order:last-child {
+  border-bottom: none;
+}
+
+.profile-order h3 {
+  margin-bottom: 7px;
+  font-size: 16px;
+}
+
+.profile-order p {
+  margin: 4px 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.profile-order-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-order-status {
+  padding: 6px 11px;
+
+  border-radius: 20px;
+
+  background: #f3f4f6;
+  color: #111827;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.profile-order-right strong {
+  font-size: 16px;
+}
+
+.profile-order-right a {
+  color: #111827;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.profile-order-right a:hover {
+  text-decoration: underline;
+}
+
+/* Empty / Messages */
+
+.no-orders {
+  padding: 25px 0;
+  text-align: center;
+}
+
+.no-orders p {
+  margin-bottom: 18px;
+  color: #6b7280;
+}
+
+.no-orders a {
+  display: inline-block;
+
+  padding: 11px 17px;
+
+  border-radius: 8px;
+
+  background: #111827;
+  color: #ffffff;
+
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profile-message {
+  color: #6b7280;
+}
+
+.profile-error {
+  color: #dc2626;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+  .profile-page {
+    padding: 40px 15px;
+  }
+
+  .profile-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .profile-header h1 {
+    font-size: 30px;
+  }
+
+  .profile-info {
+    grid-template-columns: 1fr;
+  }
+
+  .password-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .profile-order {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-order-right {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 500px) {
+  .profile-card {
+    padding: 20px;
+  }
+
+  .profile-order-right {
+    gap: 10px;
+  }
+}

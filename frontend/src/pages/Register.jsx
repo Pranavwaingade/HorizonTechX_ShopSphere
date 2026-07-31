@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import api from "../services/api";
@@ -29,12 +28,28 @@ function Register() {
 
     setMessage("");
     setError("");
+
+    if (formData.name.trim().length < 3) {
+      setError("Name must be at least 3 characters");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      // const response = await axios.post("http://localhost:5000/api/auth/register",formData);
-      const response = await api.post("/auth/register", formData);
-
+      const response = await api.post(
+        "/auth/register",
+        {
+          name: formData.name.trim(),
+          email: formData.email.trim().toLowerCase(),
+          password: formData.password,
+        }
+      );
 
       setMessage(response.data.message);
 
@@ -50,7 +65,7 @@ function Register() {
     } catch (error) {
       setError(
         error.response?.data?.message ||
-          "Registration failed"
+        "Registration failed"
       );
     } finally {
       setLoading(false);

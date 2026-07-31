@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import api from "../services/api";
@@ -25,24 +24,31 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
+    if (!formData.email.trim() || !formData.password) {
+      setError("Email and password are required");
+      return;
+    }
     e.preventDefault();
 
     setError("");
     setLoading(true);
 
     try {
-      // const response = await axios.post("http://localhost:5000/api/auth/login",formData);
       const response = await api.post("/auth/login", formData);
 
       const { token, user } = response.data;
 
       login(token, user);
 
-      navigate("/");
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       setError(
         error.response?.data?.message ||
-          "Login failed"
+        "Login failed"
       );
     } finally {
       setLoading(false);

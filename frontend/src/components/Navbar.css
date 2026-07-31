@@ -2,6 +2,7 @@
   width: 100%;
   background-color: #ffffff;
   border-bottom: 1px solid #e5e5e5;
+
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -10,16 +11,20 @@
 .navbar-container {
   max-width: 1200px;
   margin: 0 auto;
+
   padding: 16px 20px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  position: relative;
 }
 
 .logo {
   font-size: 24px;
   font-weight: 700;
+
   text-decoration: none;
   color: #111827;
 }
@@ -33,8 +38,11 @@
 .nav-links a {
   text-decoration: none;
   color: #374151;
+
   font-size: 16px;
   font-weight: 500;
+
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
@@ -49,8 +57,113 @@
 .logout-btn {
   border: none;
   background: none;
+
   color: #dc2626;
+
   font-size: 15px;
   font-weight: 500;
+
   cursor: pointer;
+}
+
+/* Hamburger */
+
+.menu-toggle {
+  display: none;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  cursor: pointer;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+}
+
+.menu-toggle span {
+  width: 20px;
+  height: 2px;
+
+  background: #111827;
+
+  border-radius: 2px;
+
+  transition: all 0.2s ease;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .navbar-container {
+    padding: 14px 16px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    padding: 15px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 0;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a,
+  .logout-btn {
+    width: 100%;
+
+    padding: 13px 10px;
+
+    text-align: left;
+
+    font-size: 15px;
+
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .nav-links a:last-of-type {
+    border-bottom: none;
+  }
+
+  .logout-btn {
+    text-align: left;
+  }
+
+  .user-name {
+    font-weight: 600;
+  }
 }

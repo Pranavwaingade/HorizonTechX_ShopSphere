@@ -1,0 +1,95 @@
+.admin-orders-page {
+  min-height: calc(100vh - 70px);
+  padding: 50px 20px;
+  background: #f8fafc;
+}
+
+.admin-orders-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-orders-header {
+  margin-bottom: 30px;
+}
+
+.admin-orders-header h1 {
+  margin-bottom: 8px;
+  font-size: 34px;
+}
+
+.admin-orders-header p {
+  color: #6b7280;
+}
+
+.admin-orders-table-wrapper {
+  overflow-x: auto;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.admin-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-orders-table th,
+.admin-orders-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-orders-table th {
+  background: #f9fafb;
+  font-size: 14px;
+}
+
+.admin-orders-table td {
+  font-size: 14px;
+}
+
+.admin-orders-table td p {
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.admin-orders-table select {
+  min-width: 160px;
+  padding: 9px 10px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+
+  background: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.payment-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 15px;
+
+  background: #f3f4f6;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-orders-message {
+  padding: 100px 20px;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .admin-orders-page {
+    padding: 40px 15px;
+  }
+
+  .admin-orders-header h1 {
+    font-size: 28px;
+  }
+}
