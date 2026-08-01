@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import api from "../services/api";
 import "./AdminProductForm.css";
 
@@ -37,13 +38,11 @@ function AdminAddProduct() {
         price: Number(formData.price),
         stock: Number(formData.stock),
       });
-
+      toast.success("Product added successfully 📦");
       navigate("/admin");
     } catch (error) {
-      setError(
-        error.response?.data?.message ||
-          "Failed to create product"
-      );
+      const message=error.response?.data?.message ||"Failed to create product"
+      toast.error(message);
     } finally {
       setLoading(false);
     }

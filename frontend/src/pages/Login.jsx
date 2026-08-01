@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
 import api from "../services/api";
 import "./Login.css";
 
@@ -25,7 +26,11 @@ function Login() {
 
   const handleSubmit = async (e) => {
     if (!formData.email.trim() || !formData.password) {
-      setError("Email and password are required");
+      const message = "Email and password are required";
+
+      setError(message);
+
+      toast.error(message); 
       return;
     }
     e.preventDefault();
@@ -39,6 +44,7 @@ function Login() {
       const { token, user } = response.data;
 
       login(token, user);
+      toast.success("Login Successful 🎉");
 
       if (user.role === "admin") {
         navigate("/admin");
@@ -46,10 +52,12 @@ function Login() {
         navigate("/");
       }
     } catch (error) {
-      setError(
-        error.response?.data?.message ||
-        "Login failed"
-      );
+      const message =
+        error.response?.data?.message || "Login failed";
+
+      setError(message);
+
+      toast.error(message);
     } finally {
       setLoading(false);
     }

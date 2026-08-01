@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import api from "../services/api";
 import "./AdminDashboard.css";
 
@@ -43,6 +44,7 @@ function AdminDashboard() {
           (product) => product._id !== id
         )
       );
+      toast.success("Product deleted successfully");
     } catch (error) {
       alert(
         error.response?.data?.message ||

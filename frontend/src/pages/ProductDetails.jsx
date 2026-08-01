@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import api from "../services/api";
 import { useCart } from "../context/CartContext";
 import "./ProductDetails.css";

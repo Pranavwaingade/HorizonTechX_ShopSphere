@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 import "./AdminProductForm.css";
@@ -67,13 +68,12 @@ function AdminEditProduct() {
         price: Number(formData.price),
         stock: Number(formData.stock),
       });
-
+      toast.success("Product updated successfully ✏️");
       navigate("/admin");
     } catch (error) {
-      setError(
-        error.response?.data?.message ||
-          "Failed to update product"
-      );
+      const message= error.response?.data?.message ||"Failed to update product"
+        toast.error(message);
+    
     } finally {
       setSaving(false);
     }

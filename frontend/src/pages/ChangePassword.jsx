@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import api from "../services/api";
 import "./ChangePassword.css";
 
@@ -51,6 +52,7 @@ function ChangePassword() {
       );
 
       setMessage(response.data.message);
+      toast.success("Password updated successfully 🔒");
 
       setFormData({
         currentPassword: "",
@@ -62,10 +64,8 @@ function ChangePassword() {
         navigate("/account");
       }, 1200);
     } catch (error) {
-      setError(
-        error.response?.data?.message ||
-          "Failed to change password"
-      );
+      const message = error.response?.data?.message || "Failed to change password"
+      toast.error(message);
     } finally {
       setLoading(false);
     }

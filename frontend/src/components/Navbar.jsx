@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 import "./Navbar.css";
 
@@ -12,6 +13,7 @@ function Navbar() {
 
   const handleLogout = () => {
     logout();
+    toast.success("Logged out successfully");
     setMenuOpen(false);
     navigate("/login");
   };
@@ -19,9 +21,22 @@ function Navbar() {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+  const [scrolled, setScrolled] = useState(false);
+
+useEffect(() => {
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 20);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
       <div className="navbar-container">
 
         <Link

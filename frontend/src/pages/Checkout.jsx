@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import api from "../services/api";
 import { useCart } from "../context/CartContext";
 import "./Checkout.css";
@@ -62,11 +63,10 @@ function Checkout() {
       });
 
       navigate(`/orders/${response.data.order._id}`);
+      toast.success("Order placed successfully 🎉");
     } catch (error) {
-      setError(
-        error.response?.data?.message ||
-          "Failed to place order"
-      );
+      const message=error.response?.data?.message || "Failed to place order"
+      toast.error(message);
     } finally {
       setLoading(false);
     }

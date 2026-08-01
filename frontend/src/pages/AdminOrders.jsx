@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import api from "../services/api";
 import "./AdminOrders.css";
 
@@ -51,6 +52,7 @@ function AdminOrders() {
             : order
         )
       );
+      toast.success("Order status updated");
     } catch (error) {
       alert(
         error.response?.data?.message ||

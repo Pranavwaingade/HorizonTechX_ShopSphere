@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import "./Register.css";
 import api from "../services/api";
 
@@ -30,12 +31,20 @@ function Register() {
     setError("");
 
     if (formData.name.trim().length < 3) {
-      setError("Name must be at least 3 characters");
+      const message = "Name must be at least 3 characters";
+
+      setError(message);
+      toast.error(message);
+
       return;
     }
 
     if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters");
+      const message = "Password must be at least 6 characters";
+
+      setError(message);
+      toast.error(message);
+
       return;
     }
 
@@ -53,6 +62,17 @@ function Register() {
 
       setMessage(response.data.message);
 
+      toast.success("Account Created Successfully 🎉");
+
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
       setFormData({
         name: "",
         email: "",
@@ -63,10 +83,13 @@ function Register() {
         navigate("/login");
       }, 1000);
     } catch (error) {
-      setError(
+      const message =
         error.response?.data?.message ||
-        "Registration failed"
-      );
+        "Registration failed";
+
+      setError(message);
+
+      toast.error(message);
     } finally {
       setLoading(false);
     }

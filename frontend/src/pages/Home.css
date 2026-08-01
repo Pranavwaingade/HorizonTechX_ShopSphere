@@ -132,18 +132,28 @@
   color: #111827;
   text-decoration: none;
 
-  transition: transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
 }
 
 .category-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px);
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  border-color: #2563eb;
+
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.08);
 }
 
 .category-icon {
   font-size: 42px;
+
+  transition: transform 0.35s ease;
+}
+
+.category-card:hover .category-icon {
+  transform: scale(1.15);
 }
 
 .category-card h3 {
@@ -176,14 +186,15 @@
   color: #111827;
   text-decoration: none;
 
-  transition: transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .featured-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px);
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .featured-image {
@@ -205,14 +216,14 @@
 }
 
 .featured-card:hover .featured-image img {
-  transform: scale(1.04);
+  transform: scale(1.08);
 }
 
 .featured-info {
   padding: 18px;
 }
 
-.featured-info > span {
+.featured-info>span {
   color: #6b7280;
 
   font-size: 12px;
@@ -258,11 +269,19 @@
 
   font-size: 14px;
   font-weight: 600;
+   transition:
+    transform .3s ease,
+    box-shadow .3s ease;
 }
 
+.view-all-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(17, 24, 39, .25);
+}
 /* Responsive */
 
 @media (max-width: 900px) {
+
   .category-grid,
   .featured-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -298,5 +317,52 @@
 
   .featured-image {
     height: 260px;
+  }
+}
+
+
+.hero-badge {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.hero h1 {
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.hero p {
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards;
+  animation-delay: 0.4s;
+}
+
+.hero-btn {
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards;
+  animation-delay: 0.6s;
+
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+
+  box-shadow: 0 10px 25px rgba(17, 24, 39, 0.25);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
