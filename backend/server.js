@@ -13,14 +13,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+connectDB();
+
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
-connectDB();
-
 app.get("/", (req, res) => {
   res.send("ShopSphere API Running...");
+});
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Server is running",
+  });
 });
 
 const PORT = process.env.PORT || 5000;
