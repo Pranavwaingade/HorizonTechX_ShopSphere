@@ -80,6 +80,7 @@ const loginUser = async (req, res) => {
     const token = jwt.sign(
       {
         userId: user._id,
+        role: user.role,
       },
       process.env.JWT_SECRET,
       {
@@ -94,6 +95,7 @@ const loginUser = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
     });
   } catch (error) {
@@ -103,10 +105,69 @@ const loginUser = async (req, res) => {
     });
   }
 };
+
 const getMe = async (req, res) => {
   res.status(200).json({
     user: req.user,
   });
 };
 
-export { registerUser, loginUser, getMe };
+const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        message: "Current password and new password are required",
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        message: "New password must be at least 6 characters",
+      });
+    }
+
+    // Get user with password
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    // Check current password
+    const isPasswordMatch = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+
+    if (!isPasswordMatch) {
+      return res.status(400).json({
+        message: "Current password is incorrect",
+      });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(
+      newPassword,
+      10
+    );
+
+    user.password = hashedPassword;
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Password changed successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to change password",
+      error: error.message,
+    });
+  }
+};
+
+export { registerUser, loginUser, getMe , changePassword};

@@ -3,7 +3,8 @@ import express from "express";
 import {
   registerUser,
   loginUser,
-  getMe,
+  getMe, 
+  changePassword,
 } from "../controllers/authController.js";
 
 import protect from "../middleware/authMiddleware.js";
@@ -14,5 +15,6 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 router.get("/me", protect, getMe);
+router.put("/change-password",protect,changePassword);
 
 export default router;

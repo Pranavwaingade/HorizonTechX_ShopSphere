@@ -141,12 +141,79 @@ const getOrderById = async (req, res) => {
     });
   }
 };
+
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .populate("user", "name email")
+      .populate(
+        "items.product",
+        "name category price image"
+      )
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch all orders",
+      error: error.message,
+    });
+  }
+};
+
+const updateOrderStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { orderStatus } = req.body;
+
+    const allowedStatuses = [
+      "Placed",
+      "Confirmed",
+      "Processing",
+      "Shipped",
+      "Out for Delivery",
+      "Delivered",
+      "Cancelled",
+    ];
+
+    if (!allowedStatuses.includes(orderStatus)) {
+      return res.status(400).json({
+        message: "Invalid order status",
+      });
+    }
+
+    const order = await Order.findById(id);
+
+    if (!order) {
+      return res.status(404).json({
+        message: "Order not found",
+      });
+    }
+
+    order.orderStatus = orderStatus;
+
+    const updatedOrder = await order.save();
+
+    res.status(200).json({
+      message: "Order status updated successfully",
+      order: updatedOrder,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to update order status",
+      error: error.message,
+    });
+  }
+};
+
 // export { createOrder, getMyOrders };
 
 export {
   createOrder,
   getMyOrders,
   getOrderById,
+  getAllOrders,
+  updateOrderStatus,
 };
 
 export default createOrder;

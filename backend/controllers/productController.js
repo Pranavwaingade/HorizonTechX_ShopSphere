@@ -4,7 +4,16 @@ import Product from "../models/Product.js";
 // Get all products
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({ createdAt: -1 });
+    const { category } = req.query;
+
+    const filter = {};
+
+    if (category) {
+      filter.category = category;
+    }
+
+    const products = await Product.find(filter)
+      .sort({ createdAt: -1 });
 
     res.status(200).json(products);
   } catch (error) {
@@ -14,7 +23,6 @@ const getProducts = async (req, res) => {
     });
   }
 };
-
 // Get single product
 const getProductById = async (req, res) => {
   try {
@@ -88,8 +96,79 @@ const createProduct = async (req, res) => {
   }
 };
 
+const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+
+    const {
+      name,
+      category,
+      price,
+      image,
+      description,
+      stock,
+    } = req.body;
+
+    if (name !== undefined) product.name = name;
+    if (category !== undefined) product.category = category;
+    if (price !== undefined) product.price = price;
+    if (image !== undefined) product.image = image;
+    if (description !== undefined) {
+      product.description = description;
+    }
+    if (stock !== undefined) product.stock = stock;
+
+    const updatedProduct = await product.save();
+
+    res.status(200).json({
+      message: "Product updated successfully",
+      product: updatedProduct,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to update product",
+      error: error.message,
+    });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+
+    await Product.findByIdAndDelete(id);
+
+    res.status(200).json({
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to delete product",
+      error: error.message,
+    });
+  }
+};
+
 export {
   getProducts,
   getProductById,
-  createProduct
+  createProduct,
+  updateProduct,
+  deleteProduct,
 };
